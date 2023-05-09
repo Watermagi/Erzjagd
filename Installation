@@ -8,7 +8,7 @@ Copy code
 pip install pygame
 Dies lädt und installiert das Pygame-Framework automatisch.
 
-Lade das Spiel herunter. Klicke dazu auf den grünen "Code"-Button auf der GitHub-Seite des Spiels (https://github.com/Watermagi/LKW-Spiel) und wähle "Download ZIP". Entpacke dann das ZIP-Archiv.
+Lade das Spiel herunter. Klicke dazu auf den grünen "Code"-Button auf der GitHub-Seite des Spiels (https://github.com/Watermagi/Erzjagd) und wähle "Download ZIP". Entpacke dann das ZIP-Archiv.
 
 Öffne die Kommandozeile und navigiere zum Ordner, in dem das Spiel gespeichert ist.
 
