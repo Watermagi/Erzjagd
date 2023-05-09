@@ -1,0 +1,15 @@
+Willkommen zur Benutzerdokumentation für das Spiel "LKW-Spiel".
+
+Ziel des Spiels ist es, so viel Erz wie möglich abzubauen und zum Depot zu bringen, um Punkte zu sammeln.
+
+Zu Beginn des Spiels erscheint der Spieler in der Mitte des Bildschirms. Der Spieler kann sich mithilfe der Pfeiltasten in alle vier Richtungen bewegen.
+
+Auf der Karte befinden sich eine Minen, Tankstelle und Depot, die der Spieler besuchen kann. Die Mine produziert kontinuierlich Erz, das vom Spieler abgebaut werden kann. Wenn der Spieler die Mine betritt, kann er sein Inventar durch Spacebar füllen. Das Inventar des Spielers kann maximal 20 Einheiten Erz aufnehmen.
+
+Sobald der Spieler eine bestimmte Menge an Erz abgebaut hat, kann er zum Depot gehen, um das Erz abzuliefern und Punkte zu sammeln. Der Spieler kann das Depot betreten, um sein Inventar zu leeren. Je mehr Erz der Spieler zum Depot bringt, desto mehr Punkte sammelt er.
+
+Der Spieler muss auch zur Tankstelle gehen, um seine Bewegungsfähigkeit zu vermeiden. Wenn der Spieler die Tankstelle betritt, füllt sich seine Energieleiste automatisch auf.
+
+Das Spiel ist beendet, wenn der Spieler keine Energie mehr hat oder wenn ein Highscore von 100000 erreicht worden ist.
+
+Viel Spaß beim Spielen von "LKW-Spiel"!
