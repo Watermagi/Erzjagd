@@ -1,15 +1,29 @@
-Willkommen zur Benutzerdokumentation für das Spiel "LKW-Spiel".
+Benutzerdokumentation:
+Spiel "Erzjagd"
 
-Ziel des Spiels ist es, so viel Erz wie möglich abzubauen und zum Depot zu bringen, um Punkte zu sammeln.
+Ziel des Spiels:
+Sammeln Sie so viel Erz wie möglich, indem Sie die Mine abbauen und das gesammelte Erz in den Depot bringen und den Tank füllen, um weiter abzubauen.
 
-Zu Beginn des Spiels erscheint der Spieler in der Mitte des Bildschirms. Der Spieler kann sich mithilfe der Pfeiltasten in alle vier Richtungen bewegen.
+Spielanleitung:
 
-Auf der Karte befinden sich eine Minen, Tankstelle und Depot, die der Spieler besuchen kann. Die Mine produziert kontinuierlich Erz, das vom Spieler abgebaut werden kann. Wenn der Spieler die Mine betritt, kann er sein Inventar durch Spacebar füllen. Das Inventar des Spielers kann maximal 20 Einheiten Erz aufnehmen.
+Steuerung: 
 
-Sobald der Spieler eine bestimmte Menge an Erz abgebaut hat, kann er zum Depot gehen, um das Erz abzuliefern und Punkte zu sammeln. Der Spieler kann das Depot betreten, um sein Inventar zu leeren. Je mehr Erz der Spieler zum Depot bringt, desto mehr Punkte sammelt er.
+- Bewegen Sie den Spieler mit den Pfeiltasten links, rechts, oben und unten.
 
-Der Spieler muss auch zur Tankstelle gehen, um seine Bewegungsfähigkeit zu vermeiden. Wenn der Spieler die Tankstelle betritt, füllt sich seine Energieleiste automatisch auf.
+- Die Mine produziert automatisch Erz, das Sie einsammeln können.
 
-Das Spiel ist beendet, wenn der Spieler keine Energie mehr hat oder wenn ein Highscore von 100000 erreicht worden ist.
+- Der Balken über der Mine zeigt an, wie viel Erz die Mine produziert hat und wann Sie das Erz abholen sollten.
 
-Viel Spaß beim Spielen von "LKW-Spiel"!
+- Sie können das Erz aufsammeln, indem Sie auf die Mine gehen und die Leertaste drücken.
+
+- Sie können das Erz ins Depot bringen, indem Sie auf das Depot gehen und die Leertaste drücken.
+
+- Sie können den Tank der Tankstelle füllen, indem Sie auf die Tankstelle gehen und die Leertaste drücken.
+
+- Wenn Sie genügend Erz im Depot haben, können Sie mehrere Minen kaufen.
+
+- Sie können das Spiel beenden, indem Sie auf das X in der oberen rechten Ecke des Bildschirms klicken.
+
+- Der Highscore wird am oberen Bildschirmrand angezeigt.
+
+Viel Spaß beim Spielen!
