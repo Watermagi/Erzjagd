@@ -1,22 +1,7 @@
-Um das Spiel ausführen zu können, benötigst du zunächst die Programmiersprache Python sowie das Pygame-Framework. Folge dazu den folgenden Schritten:
+Wilkommen und danke das du dich für mein Spiel "Erzjagd" entschieden hast.
 
-Installiere Python auf deinem Computer. Gehe dafür auf die offizielle Python-Website https://www.python.org/downloads/ und lade die neueste Version herunter. Folge dann den Anweisungen des Installationsprogramms.
+Wie du das Spiel installieren kannst, steht in der Installations-Textdatei.
 
-Installiere das Pygame-Framework. Öffne dazu die Kommandozeile (unter Windows mit der Tastenkombination "Win + R" und dem Befehl "cmd") und gib den folgenden Befehl ein:
+In der Benutzerdokumentation findest du eine genaue Beschreibung der Funktionen des Spiels.
 
-Copy code
-pip install pygame
-Dies lädt und installiert das Pygame-Framework automatisch.
-
-Lade das Spiel herunter. Klicke dazu auf den grünen "Code"-Button auf der GitHub-Seite des Spiels (https://github.com/Watermagi/LKW-Spiel) und wähle "Download ZIP". Entpacke dann das ZIP-Archiv.
-
-Öffne die Kommandozeile und navigiere zum Ordner, in dem das Spiel gespeichert ist.
-
-Starte das Spiel, indem du den folgenden Befehl eingibst:
-
-css
-Copy code
-python main.py
-Das Spiel startet nun automatisch und du kannst es spielen.
-
-Ich hoffe, diese Anleitung hilft dir weiter! Wenn du weitere Fragen hast, stehe ich gerne zur Verfügung.
+Viel Spaß
