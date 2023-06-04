@@ -1,23 +1,23 @@
 import pygame
-import sys
 
 pygame.init()
 pygame.font.init()
+font = pygame.font.Font("font\mana.ttf", 20)
+highscore = 0
 
 
-class Game():
+class Game:
     FPS = 60
 
-    def __init__(self, title, screenWidth, screenHeight):
+    def __init__(self, screenWidth, screenHeight):
         self.running = True
         self.window = pygame.display.set_mode((screenWidth, screenHeight))
-        pygame.display.set_caption(title)
         self.background = pygame.image.load("world/land.png").convert_alpha()
         self.font = pygame.font.Font("font\mana.ttf", 30)
 
     def update_display(self):
         for event in pygame.event.get():
-            if (event.type == pygame.QUIT):
+            if event.type == pygame.QUIT:
                 self.running = False
         pygame.display.update()
 
@@ -29,31 +29,49 @@ class Game():
         text = font.render("Highscore: " + str(highscore), True, (0, 0, 0))
         self.window.blit(text, (900, 30))
 
-class Button:
-    def __init__(self, x, y, image, action, scale):
-        self.action = action
-        self.image = pygame.image.load(image)
-        width = self.image.get_width()
-        height = self.image.get_height()
-        self.image = pygame.transform.scale(self.image, (int(width * scale), int(height * scale)))
-        self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
-        self.clicked = False
+    def draw_game_over(self):
+        self.window.fill((0, 0, 0))
+        text_surface = self.font.render("Game Over", True, (255, 255, 255))
+        text_rect = text_surface.get_rect(center=(self.window.get_width() // 2, self.window.get_height() // 2))
+        self.window.blit(text_surface, text_rect)
+        pygame.display.update()
 
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
+    def draw_victory(self):
+        self.window.fill((0, 0, 0))
+        text_surface = self.font.render("Gewonnen", True, (255, 255, 255))
+        text_rect = text_surface.get_rect(center=(self.window.get_width() // 2, self.window.get_height() // 2))
+        self.window.blit(text_surface, text_rect)
+        pygame.display.update()
 
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_clicked = pygame.mouse.get_pressed()[0]
 
-        if self.rect.collidepoint(mouse_pos):
-            if mouse_clicked:
-                self.clicked = True
+class Button():
+    def __init__(self, image, pos, text_input, font, base_color, hovering_color):
+        self.image = image
+        self.x_pos = pos[0]
+        self.y_pos = pos[1]
+        self.font = font
+        self.base_color, self.hovering_color = base_color, hovering_color
+        self.text_input = text_input
+        self.text = self.font.render(self.text_input, True, self.base_color)
+        if self.image is None:
+            self.image = self.text
+        self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+        self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
+
+    def update(self, screen):
+        if self.image is not None:
+            screen.blit(self.image, self.rect)
+        screen.blit(self.text, self.text_rect)
+
+    def checkForInput(self, position):
+        if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top,
+                                                                                          self.rect.bottom):
+            return True
+        return False
+
+    def changeColor(self, position):
+        if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top,
+                                                                                          self.rect.bottom):
+            self.text = self.font.render(self.text_input, True, self.hovering_color)
         else:
-            self.clicked = False
-
-        return self.clicked
-
-
-play_button = Button(400, 350, "menu/play_button.png", Game.start_game, 0.2)
-quit_button = Button(400, 500, "menu/quit_button.png", Game.quit_game, 0.2)
+            self.text = self.font.render(self.text_input, True, self.base_color)
