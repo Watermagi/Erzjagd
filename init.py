@@ -1,9 +1,9 @@
 import pygame
+import chars
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.Font("font\mana.ttf", 20)
-highscore = 0
+font = pygame.font.Font("font\mana.ttf", 30)
 
 
 class Game:
@@ -26,25 +26,55 @@ class Game:
         self.window.blit(self.background, (0, 0))
 
     def draw_highscore(self):
-        text = font.render("Highscore: " + str(highscore), True, (0, 0, 0))
+        text = font.render("Highscore: " + str(chars.highscore), True, (0, 0, 0))
         self.window.blit(text, (900, 30))
 
     def draw_game_over(self):
         self.window.fill((0, 0, 0))
-        text_surface = self.font.render("Game Over", True, (255, 255, 255))
-        text_rect = text_surface.get_rect(center=(self.window.get_width() // 2, self.window.get_height() // 2))
-        self.window.blit(text_surface, text_rect)
+        game_over_text = "Game Over"
+        highscore_text = "Highscore: " + str(chars.highscore)
+        erze_gestohlen_text = "Überfälle erlitten: " + str(chars.stolen)
+
+        game_over_surface = self.font.render(game_over_text, True, (255, 255, 255))
+        highscore_surface = self.font.render(highscore_text, True, (255, 255, 255))
+        erze_gestohlen_surface = self.font.render(erze_gestohlen_text, True, (255, 255, 255))
+
+        game_over_rect = game_over_surface.get_rect(
+            center=(self.window.get_width() // 2, self.window.get_height() // 2 - 40))
+        highscore_rect = highscore_surface.get_rect(
+            center=(self.window.get_width() // 2, self.window.get_height() // 2))
+        erze_gestohlen_rect = erze_gestohlen_surface.get_rect(
+            center=(self.window.get_width() // 2, self.window.get_height() // 2 + 40))
+
+        self.window.blit(game_over_surface, game_over_rect)
+        self.window.blit(highscore_surface, highscore_rect)
+        self.window.blit(erze_gestohlen_surface, erze_gestohlen_rect)
         pygame.display.update()
 
     def draw_victory(self):
         self.window.fill((0, 0, 0))
-        text_surface = self.font.render("Gewonnen", True, (255, 255, 255))
-        text_rect = text_surface.get_rect(center=(self.window.get_width() // 2, self.window.get_height() // 2))
-        self.window.blit(text_surface, text_rect)
+        victory_text = "Gewonnen!"
+        highscore_text = "Highscore: " + str(chars.highscore)
+        erze_gestohlen_text = "Überfälle erlitten: " + str(chars.stolen)
+
+        victory_surface = self.font.render(victory_text, True, (255, 255, 255))
+        highscore_surface = self.font.render(highscore_text, True, (255, 255, 255))
+        erze_gestohlen_surface = self.font.render(erze_gestohlen_text, True, (255, 255, 255))
+
+        victory_rect = victory_surface.get_rect(
+            center=(self.window.get_width() // 2, self.window.get_height() // 2 - 40))
+        highscore_rect = highscore_surface.get_rect(
+            center=(self.window.get_width() // 2, self.window.get_height() // 2))
+        erze_gestohlen_rect = erze_gestohlen_surface.get_rect(
+            center=(self.window.get_width() // 2, self.window.get_height() // 2 + 40))
+
+        self.window.blit(victory_surface, victory_rect)
+        self.window.blit(highscore_surface, highscore_rect)
+        self.window.blit(erze_gestohlen_surface, erze_gestohlen_rect)
         pygame.display.update()
 
 
-class Button():
+class Button:
     def __init__(self, image, pos, text_input, font, base_color, hovering_color):
         self.image = image
         self.x_pos = pos[0]
