@@ -15,21 +15,22 @@ def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("font/mana.ttf", size)
 
 
+def reset_game():
+    chars.highscore = 0
+
+
 def play():
     while True:
         game = init.Game(1280, 720)
-        clock = pygame.time.Clock()
-        player = chars.Player(game, 400, 400)
+        player = chars.Player(game, 620, 360)
         mine = welt.Mine(game, 200, 200)
         depot = welt.Depot(game, 1000, 500)
         tankstelle = welt.Tankstelle(game, 1000, 200)
-        helicopter = chars.Helicopter(game, 200, 600)
-        base = welt.Basis(game, 200, 600)
+        helicopter = chars.Helicopter(game, 200, 500)
+        base = welt.Basis(game, 200, 500)
 
         # Game loop
         while game.running:
-            clock.tick(game.FPS)
-            game.update_display()
 
             # Handle events
             for event in pygame.event.get():
@@ -37,39 +38,45 @@ def play():
                     pygame.quit()
                     sys.exit()
 
-            # Update game objects
-            mine.update()
-            depot.update()
-            tankstelle.update()
-            base.update()
-            player.update()
-            helicopter.chase(player)
-            helicopter.update_animation()
-
             # Draw game objects
-            game.draw_display()
+            game.draw_background()
+            game.draw_highscore()
             mine.draw_mine()
             depot.draw_depot()
             tankstelle.draw_tankstelle()
             base.draw_basis()
-            player.draw_player()
+            player.collect_erz(mine)
+            player.deposit_erz(depot)
+            player.refill_ausdauer(tankstelle)
             player.draw_ausdauer()
+            player.draw_player()
             helicopter.draw_helicopter()
-
-            pygame.display.update()
+            mine.update_erz_counter()
+            player.update_player()
+            helicopter.chase(player)
+            helicopter.steal(player, helicopter)
+            helicopter.to_base(base)
+            helicopter.update_animation()
+            game.update_display()
 
             # Check if Victory or Game Over
             if player.ausdauer <= 0:
                 init.Game.draw_game_over(game)
-                break  # Exit the game loop and go back to the main menu
-            elif player.highscore >= 1000:
+                reset_game()
+                break
+            elif chars.highscore >= 4000:
                 init.Game.draw_victory(game)
-                break  # Exit the game loop and go back to the main menu
+                reset_game()
+                break
+            elif chars.highscore <= -100:
+                init.Game.draw_game_over(game)
+                reset_game()
+                break
 
         # Continue to the main menu after the game is finished
-        pygame.time.delay(2000)  # Delay for 2 seconds before going back to the main menu
+        pygame.time.delay(4000)  # Delay for 2 seconds before going back to the main menu
         break  # Exit the play function and go back to the main menu
-
+    pygame.display.update()
 
 
 def options():
@@ -109,12 +116,12 @@ def main_menu():
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         PLAY_BUTTON = init.Button(image=pygame.image.load("menu/Play Rect.png"), pos=(640, 250),
-                                  text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                                  text_input="PLAY", font=get_font(75), base_color="White", hovering_color="green")
         OPTIONS_BUTTON = init.Button(image=pygame.image.load("menu/Options Rect.png"), pos=(640, 400),
-                                     text_input="OPTIONS", font=get_font(75), base_color="#d7fcd4",
-                                     hovering_color="White")
+                                     text_input="OPTIONS", font=get_font(75), base_color="White",
+                                     hovering_color="green")
         QUIT_BUTTON = init.Button(image=pygame.image.load("menu/Quit Rect.png"), pos=(640, 550),
-                                  text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                                  text_input="QUIT", font=get_font(75), base_color="White", hovering_color="green")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
