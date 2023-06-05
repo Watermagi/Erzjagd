@@ -11,17 +11,17 @@ SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Erzjagd")
 
 
-def get_font(size):  # Returns Press-Start-2P in the desired size
+def get_font(size):  # gibt die benötigte Font-Größe an
     return pygame.font.Font("font/mana.ttf", size)
 
 
-def reset_game():
+def reset_game():    # Setzt den Highscore auf 0 d.h das Game startet von vorne
     chars.highscore = 0
 
 
-def play():
+def play():     # Spiel-Loop
     while True:
-        game = init.Game(1280, 720)
+        game = init.Game(1280, 720)                         # Hier bekommen die Objekte/Charaktere ihre Koordinaten
         player = chars.Player(game, 620, 360)
         mine = welt.Mine(game, 200, 200)
         depot = welt.Depot(game, 1000, 500)
@@ -38,9 +38,8 @@ def play():
                     pygame.quit()
                     sys.exit()
 
-            # Draw game objects
-            game.draw_background()
-            game.draw_highscore()
+            game.draw_background()                      # Alle Funktionen um das Spiel zum Laufen zu bringen
+            game.draw_highscore()                       # Hier wird alles gezeichnet und die Funktionen ein gerufen
             mine.draw_mine()
             depot.draw_depot()
             tankstelle.draw_tankstelle()
@@ -59,7 +58,7 @@ def play():
             helicopter.update_animation()
             game.update_display()
 
-            # Check if Victory or Game Over
+            # Check, ob gewonnen oder Verloren
             if player.ausdauer <= 0:
                 init.Game.draw_game_over(game)
                 reset_game()
@@ -73,13 +72,13 @@ def play():
                 reset_game()
                 break
 
-        # Continue to the main menu after the game is finished
-        pygame.time.delay(4000)  # Delay for 2 seconds before going back to the main menu
-        break  # Exit the play function and go back to the main menu
+        # Sobald das Spiel abgeschlossen ist, kehrt es zum Hauptmenü zurück
+        pygame.time.delay(4000)  # Zeitintervall bevor es zum Menü geht
+        break  # Damit es zum Hauptmenü geht und das Spiel abgebrochen wird
     pygame.display.update()
 
 
-def options():
+def options():              # Optionsmenü wird erstellt
     while True:
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
 
@@ -106,7 +105,7 @@ def options():
         pygame.display.update()
 
 
-def main_menu():
+def main_menu():            # Hauptmenü wird erstellt
     while True:
         SCREEN.blit(BG, (0, 0))
 
@@ -133,7 +132,7 @@ def main_menu():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:        # Wenn Mauszeiger auf Button kommt, dann ...
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
@@ -145,5 +144,5 @@ def main_menu():
         pygame.display.update()
 
 
-# Start the game
+# Hauptmenü startet als erstes
 main_menu()
