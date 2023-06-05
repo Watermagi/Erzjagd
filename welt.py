@@ -4,7 +4,6 @@ import init
 pygame.init()
 pygame.font.init()
 font = pygame.font.Font("font\mana.ttf", 20)
-FPS = 60
 
 
 class Basis:
@@ -61,7 +60,6 @@ class Mine:
 
     def draw_mine(self):
         self.game.window.blit(self.image, (self.x, self.y))
-        # Balken zeichnen
         barWidth = 50
         barHeight = 10
         barFillWidth = int(self.erzCounter / self.MAX_ERZ_COUNT * barWidth)
