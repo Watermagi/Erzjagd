@@ -6,7 +6,8 @@ Installiere das Pygame-Framework. Öffne dazu die Kommandozeile (unter Windows m
 
 Copy code
 pip install pygame
-Dies lädt und installiert das Pygame-Framework automatisch.
+pip install sys
+Dies lädt und installiert die Pygame-Frameworks automatisch.
 
 Lade das Spiel herunter. Klicke dazu auf den grünen "Code"-Button auf der GitHub-Seite des Spiels (https://github.com/Watermagi/Erzjagd) und wähle "Download ZIP". Entpacke dann das ZIP-Archiv.
 
@@ -16,7 +17,7 @@ Starte das Spiel, indem du den folgenden Befehl eingibst:
 
 css
 Copy code
-python Game.py
+python main.py
 Das Spiel startet nun automatisch und du kannst es spielen.
 
 Ich hoffe, diese Anleitung hilft dir weiter! Wenn du weitere Fragen hast, stehe ich gerne zur Verfügung.
