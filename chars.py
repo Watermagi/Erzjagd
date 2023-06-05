@@ -1,10 +1,16 @@
 import pygame
 import math
+import chars
 
 pygame.init()
 pygame.font.init()
 font = pygame.font.Font("font\mana.ttf", 20)
-FPS = 60
+highscore = 0
+stolen = 0
+
+
+def distance(x1, y1, x2, y2):
+    return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
 
 
 class Player:
@@ -12,9 +18,8 @@ class Player:
         self.game = game
         self.x = x
         self.y = y
-        self.inventory = []
+        self.inventory = 0
         self.max_inventory = 20
-        self.highscore = 0
         self.image = pygame.image.load("chars/spieler.png")
         self.image = pygame.transform.scale(self.image,
                                             (int(self.image.get_width() * 2), int(self.image.get_height() * 2)))
@@ -29,12 +34,12 @@ class Player:
         self.currentFrame = 0
         self.animationDelay = 100
         self.delayCounter = 0
-        self.ausdauer = 200
-        self.ausdauer_decrease_rate = 0.03
+        self.ausdauer = 100
+        self.ausdauer_decrease_rate = 0.01
 
     def draw_inventory_bar(self):
         # Berechnet den aktuellen Erzstand des Spielers als Bruchteil des maximalen Inventarplatzes
-        currentCount = len(self.inventory)
+        currentCount = self.inventory
         fracCount = currentCount / self.max_inventory
         pygame.draw.rect(self.game.window, (255, 255, 255), pygame.Rect(80, 20, 200, 20))
         pygame.draw.rect(self.game.window, (0, 255, 0), pygame.Rect(80, 20, int(200 * fracCount), 20))
@@ -54,21 +59,21 @@ class Player:
         movement = pygame.Vector2(0, 0)
         self.draw_inventory_bar()
 
-        if pygame.key.get_pressed()[pygame.K_RIGHT]:
-            movement.x += 0.6
+        if pygame.key.get_pressed()[pygame.K_d]:
+            movement.x += 0.5
             self.currentAnimation = "right"
-        if pygame.key.get_pressed()[pygame.K_LEFT]:
-            movement.x -= 0.6
+        if pygame.key.get_pressed()[pygame.K_a]:
+            movement.x -= 0.5
             self.currentAnimation = "left"
-        if pygame.key.get_pressed()[pygame.K_UP]:
-            movement.y -= 0.6
+        if pygame.key.get_pressed()[pygame.K_w]:
+            movement.y -= 0.5
             self.currentAnimation = "up"
-        if pygame.key.get_pressed()[pygame.K_DOWN]:
-            movement.y += 0.6
+        if pygame.key.get_pressed()[pygame.K_s]:
+            movement.y += 0.5
             self.currentAnimation = "down"
 
-        if pygame.key.get_pressed()[pygame.K_UP] or pygame.key.get_pressed()[pygame.K_DOWN] or \
-                pygame.key.get_pressed()[pygame.K_LEFT] or pygame.key.get_pressed()[pygame.K_RIGHT]:
+        if pygame.key.get_pressed()[pygame.K_w] or pygame.key.get_pressed()[pygame.K_s] or \
+                pygame.key.get_pressed()[pygame.K_a] or pygame.key.get_pressed()[pygame.K_d]:
             self.ausdauer -= self.ausdauer_decrease_rate
 
         if movement.length() > 0:
@@ -91,45 +96,38 @@ class Player:
             self.currentFrame = 0
             self.currentAnimation = "idle"
 
-    @staticmethod
-    def distance(x1, y1, x2, y2):
-        return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
-
     def collect_erz(self, mine):
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             player_rect = pygame.Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
             mine_rect = pygame.Rect(mine.x, mine.y, mine.image.get_width(), mine.image.get_height())
-            if player_rect.colliderect(mine_rect) and self.distance(self.x, self.y, mine.x, mine.y) < 30:
-                numOres = min(int(mine.erzCounter), 10)
+            if player_rect.colliderect(mine_rect) and distance(self.x, self.y, mine.x, mine.y) < 30:
+                numOres = mine.erzCounter
                 if numOres > 0:
-                    if len(self.inventory) + numOres > self.max_inventory:
-                        numOres = self.max_inventory - len(self.inventory)
-                    mine.erzCounter -= numOres
-                    self.inventory.extend([None] * numOres)
-                if mine.erzCounter == 0:
-                    self.game.game_over = True
+                    space_available = self.max_inventory - self.inventory
+                    ores_to_collect = min(numOres, space_available)  # Collect only up to the available space
+                    ores_to_collect = int(ores_to_collect)
+                    self.inventory += ores_to_collect
+                    mine.erzCounter -= ores_to_collect
 
     def deposit_erz(self, depot):
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             player_rect = pygame.Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
             depot_rect = pygame.Rect(depot.x, depot.y, depot.image.get_width(), depot.image.get_height())
-            if player_rect.colliderect(depot_rect) and self.distance(self.x, self.y, depot.x, depot.y) < 40:
-                self.highscore += len(self.inventory) * 100
-                global highscore
-                highscore = max(highscore, self.highscore)
-                self.inventory.clear()
+            if player_rect.colliderect(depot_rect) and distance(self.x, self.y, depot.x, depot.y) < 40:
+                chars.highscore += self.inventory * 100
+                self.inventory = 0
 
     def refill_ausdauer(self, tankstelle):
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             player_rect = pygame.Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
             tankstelle_rect = pygame.Rect(tankstelle.x, tankstelle.y, tankstelle.image.get_width(),
                                           tankstelle.image.get_height())
-            if player_rect.colliderect(tankstelle_rect) and self.distance(self.x, self.y, tankstelle.x,
-                                                                          tankstelle.y) < 50:
-                self.ausdauer = 200
+            if player_rect.colliderect(tankstelle_rect) and distance(self.x, self.y, tankstelle.x,
+                                                                     tankstelle.y) < 50:
+                self.ausdauer = 100
 
     def draw_ausdauer(self):
-        pygame.draw.rect(self.game.window, (255, 0, 0), (500, 20, 200, 20))
+        pygame.draw.rect(self.game.window, (255, 0, 0), (500, 20, 100, 20))
         pygame.draw.rect(self.game.window, (0, 255, 0), (500, 20, self.ausdauer, 20))
         text = font.render("Ausdauer: {}".format(self.ausdauer - (self.ausdauer % 1)), True, (0, 0, 0))
         self.game.window.blit(text, (500, 50))
@@ -140,6 +138,9 @@ class Helicopter:
         self.game = game
         self.x = x
         self.y = y
+        self.inventory = 0
+        self.max_inventory = 5
+        self.wait = 0
         self.image = pygame.image.load("chars/helicopter.png").convert_alpha()
         self.image = pygame.transform.scale(self.image,
                                             (int(self.image.get_width() * 2), int(self.image.get_height() * 2)))
@@ -156,35 +157,82 @@ class Helicopter:
         self.delayCounter = 0
 
     def chase(self, player):
-        target_x = player.x
-        target_y = player.y
+        if self.inventory < self.max_inventory:
+            if self.wait < 4:
+                self.wait += 0.002
+                return
+            target_x = player.x
+            target_y = player.y
 
-        # Berechnen Sie die Richtung vom Helikopter zum Spieler
-        direction_x = target_x - self.x
-        direction_y = target_y - self.y
+            # Berechnen Sie die Richtung vom Helikopter zum Spieler
+            direction_x = target_x - self.x
+            direction_y = target_y - self.y
 
-        # Normalisieren Sie die Richtung, um eine konstante Geschwindigkeit beizubehalten
-        direction_length = math.sqrt(direction_x ** 2 + direction_y ** 2)
-        if direction_length != 0:
-            direction_x /= direction_length
-            direction_y /= direction_length
+            direction_length = math.sqrt(direction_x ** 2 + direction_y ** 2)
+            if direction_length != 0:
+                direction_x /= direction_length
+                direction_y /= direction_length
 
-        # Bewegen Sie den Helikopter in Richtung des Spielers
-        speed = 0.2  # Ändern Sie die Geschwindigkeit nach Bedarf
-        self.x += direction_x * speed
-        self.y += direction_y * speed
+            # Bewegen Sie den Helikopter in Richtung des Spielers
+            speed = 0.2
+            self.x += direction_x * speed
+            self.y += direction_y * speed
 
-        # Aktualisieren Sie die Ausrichtung des Helikopters basierend auf der Richtung
-        if abs(direction_x) > abs(direction_y):
-            if direction_x > 0:
-                self.currentAnimation = "right"
+            # Aktualisieren Sie die Ausrichtung des Helikopters basierend auf der Richtung
+            if abs(direction_x) > abs(direction_y):
+                if direction_x > 0:
+                    self.currentAnimation = "right"
+                else:
+                    self.currentAnimation = "left"
             else:
-                self.currentAnimation = "left"
-        else:
-            if direction_y > 0:
-                self.currentAnimation = "down"
+                if direction_y > 0:
+                    self.currentAnimation = "down"
+                else:
+                    self.currentAnimation = "up"
+
+    def steal(self, player, helicopter):
+        player_rect = pygame.Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
+        helicopter_rect = pygame.Rect(helicopter.x, helicopter.y, helicopter.image.get_width(),
+                                      helicopter.image.get_height())
+        if helicopter_rect.colliderect(player_rect) and distance(self.x, self.y, player.x, player.y) < 30:
+            if player.inventory >= 0:
+                space_available = self.max_inventory - self.inventory
+                ores_stolen = min(player.inventory, space_available)
+                self.inventory += ores_stolen
+                player.inventory -= ores_stolen
+                chars.stolen += 1
+
+    def to_base(self, base):
+        if self.inventory == self.max_inventory:
+            target_x = base.x
+            target_y = base.y
+
+            direction_x = target_x - self.x
+            direction_y = target_y - self.y
+
+            direction_length = math.sqrt(direction_x ** 2 + direction_y ** 2)
+            if direction_length != 0:
+                direction_x /= direction_length
+                direction_y /= direction_length
+
+            speed = 0.2
+            self.x += direction_x * speed
+            self.y += direction_y * speed
+
+            if abs(direction_x) > abs(direction_y):
+                if direction_x > 0:
+                    self.currentAnimation = "right"
+                else:
+                    self.currentAnimation = "left"
             else:
-                self.currentAnimation = "up"
+                if direction_y > 0:
+                    self.currentAnimation = "down"
+                else:
+                    self.currentAnimation = "up"
+            if distance(self.x, self.y, base.x, base.y) < 5:
+                chars.highscore -= self.inventory * 100
+                self.inventory = 0
+                self.wait = 0
 
     def draw_helicopter(self):
         player_image = self.image.subsurface(
