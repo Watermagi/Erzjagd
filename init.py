@@ -33,7 +33,7 @@ class Game:
         self.window.fill((0, 0, 0))
         game_over_text = "Game Over"
         highscore_text = "Highscore: " + str(chars.highscore)
-        erze_gestohlen_text = "Überfälle erlitten: " + str(chars.stolen)
+        erze_gestohlen_text = "Raube erlitten: " + str(chars.stolen)
 
         game_over_surface = self.font.render(game_over_text, True, (255, 255, 255))
         highscore_surface = self.font.render(highscore_text, True, (255, 255, 255))
@@ -55,7 +55,7 @@ class Game:
         self.window.fill((0, 0, 0))
         victory_text = "Gewonnen!"
         highscore_text = "Highscore: " + str(chars.highscore)
-        erze_gestohlen_text = "Überfälle erlitten: " + str(chars.stolen)
+        erze_gestohlen_text = "Raube erlitten: " + str(int(chars.stolen))
 
         victory_surface = self.font.render(victory_text, True, (255, 255, 255))
         highscore_surface = self.font.render(highscore_text, True, (255, 255, 255))
