@@ -2,7 +2,7 @@ Benutzerdokumentation:
 Spiel "Erzjagd"
 
 Ziel des Spiels:
-Sammeln Sie von der Mine Erz um Ihren Highscore zu erhöhen währendessen ein Helikopter versucht Ihr Erz zu klauen. 
+Erreichen Sie 4000 Punkte oder höher. 
 
 Spielanleitung:
 
@@ -18,14 +18,20 @@ Funktionen:
 
 - Der Balken über der Mine zeigt an, wie viel Erz die Mine produziert hat und wann Sie das Erz abholen sollten.
 
-- Sie können das Erz aufsammeln, indem Sie auf die Mine gehen und die Leertaste drücken.
+- Sie können das Erz aufsammeln, indem Sie auf die Mine gehen und die Leertaste drücken. Sie haben nur ein bestimmten Inventarplatz.
 
-- Sie können das Erz ins Depot bringen, indem Sie auf das Depot gehen und die Leertaste drücken.
+- Sie können das Erz ins Depot bringen, indem Sie auf das Depot gehen und die Leertaste drücken. Ihr Highscore steigt mit jedem
+abgegebenen Erz.
 
-- Sie können den Tank der Tankstelle füllen, indem Sie auf die Tankstelle gehen und die Leertaste drücken.
+- Sie können die Ausdauer der Tankstelle füllen, indem Sie auf die Tankstelle gehen und die Leertaste drücken. Wenn die Ausdauer leer ist, heißt es Game Over.
+
+- Passen Sie auf, ein Helikopter voller Piraten klaut Ihnen bei jedem Angriff Erz und bringt es in deren Basis zurück. Der Highscore
+sinkt mit jedem Erz in der Basis.
 
 - Sie können das Spiel beenden und in das Main Menü zurückkehren, indem Sie auf das X in der oberen rechten Ecke des Bildschirms klicken.
 
 - Der Highscore wird am oberen Bildschirmrand angezeigt.
+
+- Um das Spiel zu schließen, müssen Sie auf "Quit" klicken.
 
 Viel Spaß beim Spielen!
