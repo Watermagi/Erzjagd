@@ -2,13 +2,17 @@ Benutzerdokumentation:
 Spiel "Erzjagd"
 
 Ziel des Spiels:
-Sammeln Sie so viel Erz wie möglich, indem Sie die Mine abbauen und das gesammelte Erz in den Depot bringen und den Tank füllen, um weiter abzubauen.
+Sammeln Sie von der Mine Erz um Ihren Highscore zu erhöhen währendessen ein Helikopter versucht Ihr Erz zu klauen. 
 
 Spielanleitung:
 
+Im Hauptmenü wird das Spiel durch "Play" gestartet.
+
 Steuerung: 
 
-- Bewegen Sie den Spieler mit den Pfeiltasten links, rechts, oben und unten.
+- Bewegen Sie den Spieler mit den W A S D.
+
+Funktionen:
 
 - Die Mine produziert automatisch Erz, das Sie einsammeln können.
 
@@ -20,9 +24,7 @@ Steuerung:
 
 - Sie können den Tank der Tankstelle füllen, indem Sie auf die Tankstelle gehen und die Leertaste drücken.
 
-- Wenn Sie genügend Erz im Depot haben, können Sie mehrere Minen kaufen.
-
-- Sie können das Spiel beenden, indem Sie auf das X in der oberen rechten Ecke des Bildschirms klicken.
+- Sie können das Spiel beenden und in das Main Menü zurückkehren, indem Sie auf das X in der oberen rechten Ecke des Bildschirms klicken.
 
 - Der Highscore wird am oberen Bildschirmrand angezeigt.
 
