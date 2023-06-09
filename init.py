@@ -3,7 +3,7 @@ import chars
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.Font("font\mana.ttf", 30)
+font = pygame.font.Font("font/mana.ttf", 30)
 
 
 class Game:
@@ -13,7 +13,7 @@ class Game:
         self.running = True
         self.window = pygame.display.set_mode((screenWidth, screenHeight))
         self.background = pygame.image.load("world/land.png").convert_alpha()
-        self.font = pygame.font.Font("font\mana.ttf", 30)
+        self.font = pygame.font.Font("font/mana.ttf", 30)
 
     def update_display(self):
         for event in pygame.event.get():
