@@ -6,13 +6,13 @@ import sys
 
 pygame.init()
 pygame.font.init()
-BG = pygame.image.load("menu/Background.png")
+BG = pygame.image.load("background.png")
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Erzjagd")
 
 
 def get_font(size):  # gibt die benötigte Font-Größe an
-    return pygame.font.Font("font/mana.ttf", size)
+    return pygame.font.Font("mana.ttf", size)
 
 
 def reset_game():    # Setzt den Highscore auf 0 d.h das Game startet von vorne
@@ -114,12 +114,12 @@ def main_menu():            # Hauptmenü wird erstellt
         MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
-        PLAY_BUTTON = init.Button(image=pygame.image.load("menu/Play Rect.png"), pos=(640, 250),
+        PLAY_BUTTON = init.Button(image=pygame.image.load("play_rect.png"), pos=(640, 250),
                                   text_input="PLAY", font=get_font(75), base_color="White", hovering_color="green")
-        OPTIONS_BUTTON = init.Button(image=pygame.image.load("menu/Options Rect.png"), pos=(640, 400),
+        OPTIONS_BUTTON = init.Button(image=pygame.image.load("options_rect.png"), pos=(640, 400),
                                      text_input="OPTIONS", font=get_font(75), base_color="White",
                                      hovering_color="green")
-        QUIT_BUTTON = init.Button(image=pygame.image.load("menu/Quit Rect.png"), pos=(640, 550),
+        QUIT_BUTTON = init.Button(image=pygame.image.load("quit_rect.png"), pos=(640, 550),
                                   text_input="QUIT", font=get_font(75), base_color="White", hovering_color="green")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
