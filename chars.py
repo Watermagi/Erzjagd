@@ -7,7 +7,7 @@ pygame.init()  # Initialisiert die pygame-Bibliothek
 
 # Initialisiert die Schriftarten
 pygame.font.init()
-font = pygame.font.Font("font\mana.ttf", 20)
+font = pygame.font.Font("font/mana.ttf", 20)
 
 highscore = 0  # Variable für den Highscore
 stolen = 0  # Variable für gestohlene Objekte
