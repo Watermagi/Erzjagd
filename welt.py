@@ -3,7 +3,7 @@ import init
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.Font("font\mana.ttf", 20)
+font = pygame.font.Font("font/mana.ttf", 20)
 
 
 class Basis:
